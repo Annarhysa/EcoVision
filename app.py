@@ -2,10 +2,10 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, origins=[' http://localhost:3000'])  # Replace with your React app's origin
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app)
 
-# Sample endpoint to fetch deforestation data
-@app.route('/deforestation-data', methods=['POST'])
+@app.route('/deforestation-data', methods=['GET'])
 def get_deforestation_data():
     # Replace this with actual data retrieval logic
     data = {
@@ -15,13 +15,12 @@ def get_deforestation_data():
     }
     return jsonify(data)
 
-# Sample endpoint to fetch climate change data
-@app.route('/climate-change-data', methods=['POST'])
+@app.route('/climate-change-data', methods=['GET'])
 def get_climate_change_data():
     # Replace this with actual data retrieval logic
     data = {
-        'region': 'Global',
-        'temperature_anomaly': 1.2,  # Example temperature anomaly
+        'average_temperature': 14.6,  # Example average temperature
+        'co2_concentration': 412.5,  # Example CO2 concentration
         'year': 2021
     }
     return jsonify(data)
